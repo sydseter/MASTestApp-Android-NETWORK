@@ -1,0 +1,8 @@
+V	231111125903Z		01	unknown	/CN=intermediate.sydseter.com/ST=Drammen/C=NO/emailAddress=admin@sydseter.com/O=Sydseter Intermediate CA/OU=Intermediate CA
+V	231111132624Z		02	unknown	/CN=intermediate.sydseter.com/ST=Drammen/C=NO/emailAddress=admin@sydseter.com/O=Sydseter Intermediate CA/OU=Intermediate CA
+V	240128080028Z		03	unknown	/CN=tlsrevocation.azurewebsites.net/ST=Drammen/C=NO/emailAddress=johan@sydseter.com/O=Insecure ICA/OU=Insubordinate
+V	240128094338Z		04	unknown	/CN=tlsrevocation.azurewebsites.net/ST=Drammen/C=NO/emailAddress=johan@sydseter.com/O=Insecure ICA/OU=Insubordinate
+V	240128094432Z		05	unknown	/CN=tlsrevocation.azurewebsites.net/ST=Drammen/C=NO/emailAddress=johan@sydseter.com/O=Insecure ICA/OU=Insubordinate
+V	240201092951Z		06	unknown	/CN=tlsrevocation.azurewebsites.net/ST=Drammen/C=NO/emailAddress=johan@sydseter.com/O=Insecure ICA/OU=Insubordinate
+R	240201094824Z	220201095224Z	07	unknown	/CN=tlsrevocation.azurewebsites.net/ST=Drammen/C=NO/emailAddress=johan@sydseter.com/O=Bankrupted Inc/OU=Management
+V	250401111220Z		08	unknown	/CN=tlsrevocation.org/ST=Drammen/C=NO/emailAddress=johan.sydseter@owasp.org/O=Insecure ICA/OU=Insubordinate
