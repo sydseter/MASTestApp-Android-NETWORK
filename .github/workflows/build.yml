@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 # https://github.com/marketplace/actions/automated-build-android-app-with-github-action
 env:
-  main_project_module: UnCrackableLevel1
+  main_project_module: UnCrackable-Level1
 jobs:
   build:
 
