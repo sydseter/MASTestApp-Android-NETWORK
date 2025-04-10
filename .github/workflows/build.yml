@@ -63,10 +63,8 @@ jobs:
           files=(*)
           echo "generated_name_aab=${files[0]%.*}" >> $GITHUB_ENV
 
-
-      # create keystore from base64
-      - name: Build APK(s) Release from bundle using bundletool (Path same with bundle output)
-        run: echo ${{ secrets.KEYSTORE }} | base64 --decode | keystore.jks
+      - name: Decode keystore and create jks
+        run: echo "${{ secrets.KEYSTORE }}" | base64 --decode > keystore.jks
       # Build APK From Bundle Using Bundletool
       # Noted For Output [main_project_module]/build/outputs/bundle/release/
       - name: Build APK(s) Release from bundle using bundletool (Path same with bundle output)
