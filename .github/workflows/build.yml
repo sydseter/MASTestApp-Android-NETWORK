@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 # https://github.com/marketplace/actions/automated-build-android-app-with-github-action
 env:
-  main_project_module: UnCrackable-Level1
+  main_project_module: app
 jobs:
   build:
 
@@ -57,8 +57,16 @@ jobs:
       - name: Build app bundle release (AAB) - ${{ env.main_project_module }} module
         run: ./gradlew ${{ env.main_project_module }}:bundleRelease
 
-      # - name: Build APK(s) Debug from bundle using bundletool
-      #   run: java -jar ".github/lib/bundletool.jar" build-apks --bundle=${{ env.main_project_module }}/build/outputs/bundle/debug/${{ env.artifact_name }}-debug.aab --output=${{ env.main_project_module }}/build/outputs/bundle/debug/${{ env.artifact_name }}-debug.apks --mode=universal
+      - name: Sign AAb
+        id: sign
+        uses: r0adkll/sign-android-release@v1
+        with:
+           releaseDirectory: ${{ env.main_project_module }}/build/outputs/bundle/release
+           signingKeyBase64: ${{ secrets.KEYSTORE }}
+           alias: ${{ secrets.SIGNING_KEY_ALIAS }}
+           keyStorePassword: ${{ secrets.SIGNING_STORE_PASSWORD }}
+           keyPassword: ${{ secrets.SIGNING_KEY_PASSWORD }}
+
 
       - name: Set Env Artifact name from generated aab
         run: |
