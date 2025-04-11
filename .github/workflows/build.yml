@@ -1,9 +1,9 @@
 ---
-name: Build and Release the app
+name: Build the app
 on:
   push:
     branches:
-      - 'release/**'
+      - 'master'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -68,28 +68,13 @@ jobs:
       # Build APK From Bundle Using Bundletool
       # Noted For Output [main_project_module]/build/outputs/bundle/release/
       - name: Build APK(s) Release from bundle using bundletool (Path same with bundle output)
-        run: java -jar ".github/lib/bundletool.jar" build-apks --verbose --bundle=${{ env.main_project_module }}/build/outputs/bundle/release/${{ env.generated_name_aab }}.aab --output=${{ env.main_project_module }}/build/outputs/bundle/release/${{ env.generated_name_aab }}.apks --mode=universal --ks="keystore.jks" --ks-pass=pass:${{ secrets.SIGNING_STORE_PASSWORD }} --ks-key-alias=${{ secrets.SIGNING_KEY_ALIAS }} --key-pass=pass:${{ secrets.SIGNING_KEY_PASSWORD }}
+        run: java -jar ".github/lib/bundletool.jar" build-apks --verbose --bundle=${{ env.main_project_module }}/build/outputs/bundle/release/${{ env.generated_name_aab }}.aab --output=${{ env.main_project_module }}/build/outputs/apk/release/${{ env.repository_name }}.apks --mode=universal --ks="keystore.jks" --ks-pass=pass:${{ secrets.SIGNING_STORE_PASSWORD }} --ks-key-alias=${{ secrets.SIGNING_KEY_ALIAS }} --key-pass=pass:${{ secrets.SIGNING_KEY_PASSWORD }}
 
       # Duplicate APK(s) Release to zip file and extract
       - name: Duplicate APK(s) Release to zip file and extract
         run: |
           cd ${{ env.main_project_module }}/build/outputs/bundle/release/
-          unzip -p ${{ env.generated_name_aab }}.apks universal.apk > ${{ env.generated_name_aab }}.apk
-#      - uses: upup-company/apksigner-android@v1
-#        name: Sign app APK
-        # ID used to access action output
-#        id: sign_app
-#        with:
-#          releaseDirectory: ${{ env.main_project_module }}/build/outputs/apk/release
-#          signingKeyBase64: ${{ secrets.KEYSTORE }}
-#          alias: ${{ secrets.SIGNING_KEY_ALIAS }}
-#          keyStorePassword: ${{ secrets.SIGNING_STORE_PASSWORD }}
-#          keyPassword: ${{ secrets.SIGNING_KEY_PASSWORD }}
-#          customArgs: --v1-signing-enabled,true,--v2-signing-enabled,true
-#        env:
-#          # override default build-tools version (29.0.3) -- optional
-#          BUILD_TOOLS_VERSION: "30.0.2"
-      # Noted For Output [main_project_module]/build/outputs/apk/release/
+          unzip -p ${{ env.repository_name }}.apks universal.apk > ${{ env.repository_name }}.apk
       - name: Upload APK Release - ${{ env.repository_name }}
         uses: actions/upload-artifact@v4
         with:

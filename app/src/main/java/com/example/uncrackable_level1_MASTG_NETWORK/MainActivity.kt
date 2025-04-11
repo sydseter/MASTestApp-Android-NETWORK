@@ -1,4 +1,4 @@
-package com.example.uncrackable_level1
+package com.example.uncrackable_level1_MASTG_NETWORK
 
 import android.annotation.SuppressLint
 import android.net.http.SslError
@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.uncrackable_level1.ui.theme.UnCrackableLevel1Theme
+import com.example.uncrackable_level1_MASTG_NETWORK.ui.theme.UnCrackableLevel1Theme
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.security.SecureRandom

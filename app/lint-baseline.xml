@@ -118,7 +118,7 @@
         errorLine1="                handler.proceed()"
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/java/com/example/uncrackable_level1/MainActivity.kt"
+            file="src/main/java/com/example/uncrackable_level1_MASTG_NETWORK/MainActivity.kt"
             line="83"
             column="17"/>
     </issue>
@@ -230,7 +230,7 @@
         errorLine1="        params.gravity = Gravity.TOP or Gravity.LEFT"
         errorLine2="                                                ~~~~">
         <location
-            file="src/main/java/com/example/uncrackable_level1/MainActivity.kt"
+            file="src/main/java/com/example/uncrackable_level1_MASTG_NETWORK/MainActivity.kt"
             line="90"
             column="49"/>
     </issue>

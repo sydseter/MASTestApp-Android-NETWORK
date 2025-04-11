@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "UnCrackable-Level1"
+rootProject.name = "UnCrackable-Level1-MASTG-NETWORK"
 include(":app")

@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.uncrackable_level1"
+    namespace = "com.example.uncrackable_level1_MASTG_NETWORK"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.uncrackable_level1"
+        applicationId = "com.example.uncrackable_level1_MASTG_NETWORK"
         minSdk = 23
         targetSdk = 23
         versionCode = 1
