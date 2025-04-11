@@ -74,6 +74,7 @@
           # Duplicate APK(s) Release to zip file and extract
           - name: Duplicate APK(s) Release to zip file and extract
             run: |
+              rm keystore.jks
               cd ${{ env.main_project_module }}/build/outputs/apk/release/
               unzip -p ${{ env.repository_name }}.apks universal.apk > ${{ env.repository_name }}.apk
           # Noted For Output [main_project_module]/build/outputs/apk/release/
