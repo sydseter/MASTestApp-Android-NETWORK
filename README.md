@@ -42,3 +42,19 @@ Choose Nexus 6P API 23
 ### Logs
 
     Debug is on by default
+
+### Semgrep
+
+Install semgrep docker
+
+    docker pull semgrep/semgrep
+
+Run:
+    # MainActivity.kt
+    docker run --rm -v "${PWD}:/src" semgrep/semgrep semgrep -c rules/mstg-network.yml app/src/main/java/com/example/uncrackable_level1_MASTG_NETWORK/MainActivity.kt
+    # App configuration
+    docker run --rm -v "${PWD}:/src" semgrep/semgrep semgrep -c rules/mstg-network.yml app/build.gradle.kts
+    # Networking rules
+    docker run --rm -v "${PWD}:/src" semgrep/semgrep semgrep -c rules/mstg-network-trusted-anchors.yml app/src/main/res/xml/network_security_config.xml
+    # App is debuggable
+    docker run --rm -v "${PWD}:/src" semgrep/semgrep semgrep -c rules/mstg-network-debuggable.yml app/src/main/AndroidManifest.xml

@@ -5,6 +5,7 @@
         <domain includeSubdomains="true">tlsrevocation.org</domain>
         <domain includeSubdomains="true">tlsrevoked.no</domain>
         <domain includeSubdomains="true">tlsbadsubjectaltname.no</domain>
+        <certificateTransparency enabled="false"/>
         <trust-anchors>
             <certificates src="system" />
             <certificates src="user" />
