@@ -62,4 +62,3 @@ android {
         debugImplementation(libs.androidx.ui.test.manifest)
     }
 }
-

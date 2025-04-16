@@ -1,5 +1,6 @@
 package com.example.uncrackable_level1_MASTG_NETWORK
 
+import android.R
 import android.annotation.SuppressLint
 import android.net.http.SslError
 import android.os.Bundle
@@ -26,11 +27,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.uncrackable_level1_MASTG_NETWORK.ui.theme.UnCrackableLevel1Theme
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import com.squareup.okhttp.Callback
+import com.squareup.okhttp.CipherSuite
+import com.squareup.okhttp.ConnectionSpec
+import com.squareup.okhttp.OkHttpClient
+import com.squareup.okhttp.Request
+import com.squareup.okhttp.Response
+import com.squareup.okhttp.TlsVersion
+import java.io.IOException
 import java.security.SecureRandom
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
+import java.util.Collections
 import java.util.concurrent.TimeUnit
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
@@ -92,18 +100,20 @@ class MainActivity : ComponentActivity() {
         params.y = 100
         view.addView(webView)
         webView.loadUrl("https://tlsexpired.no")
-        //webView.loadUrl("https://tlsrevocation.org")
+        //webView.loadUrl("http://tlsrevocation.org")
         //webView.loadUrl("https://tlsrevoked.no")
         //webView.loadUrl("https://tlsbadsubjectaltname.no")
         windowManager.addView(view, params)
+
+
 
     }
 
 
 }
 
-fun Builder(): OkHttpClient.Builder {
-    val builder = OkHttpClient.Builder()
+fun Builder(): OkHttpClient {
+    val builder = OkHttpClient()
     try {
         // Create a trust manager that does not validate certificate chains
         val trustAllCerts = arrayOf<TrustManager>(@SuppressLint("CustomX509TrustManager")
@@ -128,74 +138,150 @@ fun Builder(): OkHttpClient.Builder {
             }
         })
 
-        // Install the all-trusting trust manager
+        // Install the all-trusting trust manager with an insecure protocol
+        //val sslContext = SSLContext.getInstance("TLSv1.1")
         val sslContext = SSLContext.getInstance("SSL")
+
+        sslContext.init(null, trustAllCerts, SecureRandom())
+        // Create an ssl socket factory with our all-trusting manager
+        val sslSocketFactory = sslContext.socketFactory
+
+        builder.setSslSocketFactory(sslSocketFactory)
+
+        val allowallhostnameverifier = HostnameVerifier { hostname, session ->
+            Log.w(null, "Do not verify host, allow: ".plus(hostname))
+            true
+        }
+        builder.setHostnameVerifier(allowallhostnameverifier)
+
+
+    } catch (e: Exception) {
+        Log.w(null, e)
+    }
+    val spec = ConnectionSpec.Builder(ConnectionSpec.COMPATIBLE_TLS)
+        .tlsVersions(TlsVersion.TLS_1_2)
+        .cipherSuites(
+            CipherSuite.TLS_DHE_DSS_WITH_DES_CBC_SHA,
+            CipherSuite.TLS_RSA_WITH_DES_CBC_SHA,
+            CipherSuite.TLS_DHE_DSS_WITH_AES_256_CBC_SHA,
+            CipherSuite.TLS_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA,
+            CipherSuite.TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA,
+            CipherSuite.TLS_DHE_RSA_WITH_AES_128_CBC_SHA,
+            CipherSuite.TLS_DHE_DSS_WITH_AES_256_CBC_SHA256,
+            CipherSuite.TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA,
+            CipherSuite.TLS_DHE_DSS_WITH_AES_128_CBC_SHA,
+            CipherSuite.TLS_RSA_WITH_NULL_SHA,
+            CipherSuite.TLS_RSA_WITH_NULL_MD5,
+            CipherSuite.TLS_RSA_WITH_AES_256_CBC_SHA256,
+            CipherSuite.TLS_RSA_WITH_AES_256_CBC_SHA,
+            CipherSuite.TLS_RSA_EXPORT_WITH_DES40_CBC_SHA,
+            CipherSuite.TLS_RSA_EXPORT_WITH_RC4_40_MD5,
+            CipherSuite.TLS_ECDH_anon_WITH_AES_256_CBC_SHA,
+            CipherSuite.TLS_ECDH_anon_WITH_AES_128_CBC_SHA,
+            CipherSuite.TLS_ECDH_RSA_WITH_AES_128_CBC_SHA,
+            CipherSuite.TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA,
+            CipherSuite.TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,
+            CipherSuite.TLS_DH_anon_EXPORT_WITH_DES40_CBC_SHA,
+            CipherSuite.TLS_DH_anon_WITH_AES_128_CBC_SHA,
+            CipherSuite.TLS_DH_anon_WITH_AES_128_CBC_SHA256,
+            CipherSuite.TLS_DH_anon_WITH_AES_256_CBC_SHA256,
+            CipherSuite.TLS_DH_anon_WITH_AES_256_CBC_SHA,
+            CipherSuite.TLS_RSA_WITH_AES_128_GCM_SHA256,
+            CipherSuite.TLS_RSA_WITH_AES_256_GCM_SHA384,
+            CipherSuite.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+            CipherSuite.TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
+            CipherSuite.TLS_DHE_RSA_WITH_AES_128_GCM_SHA256,
+            CipherSuite.TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+        )
+        .build()
+    builder.setConnectionSpecs(Collections.singletonList(spec))
+    return builder
+}
+
+fun ClearTextBuilder(): OkHttpClient {
+    val builder = OkHttpClient();
+    try {
+        // Create a trust manager that does not validate certificate chains
+        val trustAllCerts = arrayOf<TrustManager>(@SuppressLint("CustomX509TrustManager")
+        object : X509TrustManager {
+            @SuppressLint("TrustAllX509TrustManager")
+            @Throws(CertificateException::class)
+            override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
+                // N / A
+                Log.w(null, "Client not trusted")
+            }
+
+            @SuppressLint("TrustAllX509TrustManager")
+            @Throws(CertificateException::class)
+            override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
+                // N / A
+                Log.w(null, "Server not trusted")
+            }
+
+            override fun getAcceptedIssuers(): Array<X509Certificate> {
+                Log.w(null, "All issuers accepted")
+                return arrayOf()
+            }
+        })
+
+        // Install the all-trusting trust manager with an insecure protocol
+        val sslContext = SSLContext.getInstance("TLSv1.1")
         sslContext.init(null, trustAllCerts, SecureRandom())
         // Create an ssl socket factory with our all-trusting manager
         val sslSocketFactory = sslContext.socketFactory
 
 
-        builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
-        val allowallhostnameverifier = HostnameVerifier { hostname, session ->
-            Log.w(null, "Do not verify host, allow: ".plus(hostname))
-            true
-        }
-        builder.hostnameVerifier(allowallhostnameverifier)
+        builder.setSslSocketFactory(sslSocketFactory)
+
+        val allowallhostnameverifier = org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;
+
+        builder.setHostnameVerifier(allowallhostnameverifier)
+
 
     } catch (e: Exception) {
         Log.w(null, e)
     }
+    val spec = ConnectionSpec.Builder(ConnectionSpec.CLEARTEXT)
+        .build()
+    builder.setConnectionSpecs(Collections.singletonList(spec))
     return builder
 }
 
 @Composable
 fun CallInsecureServers(modifier: Modifier = Modifier) {
-    val content: String
-    val tlsExpired: String
-    val tlsRevoked: String
-    val tlsBadSubjectAltName: String
+    val content = "Response:"
 
     val tlsRevocationRequest = Request.Builder()
         .header("User-Agent", "COOL APP 9000")
-        //.connectTimeout(10, TimeUnit.MILLISECONDS)
-        .url("https://tlsrevocation.org").build()
-    Builder().connectTimeout(0, TimeUnit.MILLISECONDS).build().newCall(tlsRevocationRequest).execute().use { response ->
-        content = response.body!!.string()
-    }
+        //Non encrypted connection
+        .url("http://tlsrevocation.org").build()
+    val tlsRevocationResponse = ClearTextBuilder().newCall(tlsRevocationRequest).execute()?.body()!!.string()
 
     val tlsExpiredRequest = Request.Builder()
         .header("User-Agent", "COOL APP 9000")
-        //.connectTimeout(10, TimeUnit.MILLISECONDS)
+        //Expired certificate
         .url("https://tlsexpired.no").build()
-    Builder().connectTimeout(0, TimeUnit.MILLISECONDS).build().newCall(tlsExpiredRequest).execute().use { response ->
-        Log.w(null, "Call tlsexpired.no")
-        tlsExpired = response.body!!.string()
-    }
+    val tlsExpiredResponse = Builder().newCall(tlsExpiredRequest).execute()?.body()!!.string()
 
     val tlsRevokedRequest = Request.Builder()
         .header("User-Agent", "COOL APP 9000")
-        //.connectTimeout(10, TimeUnit.MILLISECONDS)
+        //Revoked certificate
         .url("https://tlsrevoked.no").build()
-    Builder().connectTimeout(0, TimeUnit.MILLISECONDS).build().newCall(tlsRevokedRequest).execute().use { response ->
-        Log.w(null, "Call tlsrevoked.no")
-        tlsRevoked = response.body!!.string()
-    }
+    val tlsRevokedResponse = Builder().newCall(tlsRevokedRequest).execute()?.body()!!.string()
 
     val tlsBadSubjectAltNamerequest = Request.Builder()
         .header("User-Agent", "COOL APP 9000")
-        //.connectTimeout(10, TimeUnit.MILLISECONDS)
+        //Certificate with wrong subject alt name
         .url("https://tlsbadsubjectaltname.no").build()
-    Builder().connectTimeout(0, TimeUnit.MILLISECONDS).build().newCall(tlsBadSubjectAltNamerequest).execute().use { response ->
-        Log.w(null, "Call tlsbadsubjectaltname.no")
-        tlsBadSubjectAltName = response.body!!.string()
-    }
+    val tlsBadSubjectAltNameResponse = Builder().newCall(tlsBadSubjectAltNamerequest).execute()?.body()!!.string()
 
     Surface(color = Color.Cyan) {
         Text(
             text = content.plus("\n\n")
-                .plus(tlsExpired).plus("\n\n")
-                .plus(tlsRevoked).plus("\n\n")
-                .plus(tlsBadSubjectAltName),
+               .plus(tlsRevocationResponse).plus("\n\n")
+                .plus(tlsExpiredResponse).plus("\n\n")
+                .plus(tlsRevokedResponse).plus("\n\n")
+                .plus(tlsBadSubjectAltNameResponse).plus("\n\n"),
             modifier = modifier.padding(24.dp)
         )
     }
