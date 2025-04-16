@@ -51,9 +51,7 @@ Install semgrep docker
 
 Run:
     # MainActivity.kt
-    docker run --rm -v "${PWD}:/src" semgrep/semgrep semgrep -c rules/mstg-network.yml app/src/main/java/com/example/uncrackable_level1_MASTG_NETWORK/MainActivity.kt
-    # App configuration
-    docker run --rm -v "${PWD}:/src" semgrep/semgrep semgrep -c rules/mstg-network.yml app/build.gradle.kts
+    docker run --rm -v "${PWD}:/src" semgrep/semgrep semgrep -c rules app/src/main
     # Networking rules
     docker run --rm -v "${PWD}:/src" semgrep/semgrep semgrep -c rules/mstg-network-trusted-anchors.yml app/src/main/res/xml/network_security_config.xml
     # App is debuggable

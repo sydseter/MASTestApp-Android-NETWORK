@@ -5,7 +5,7 @@ rules:
       - xml
     metadata:
       authors:
-        - Riccardo Cardelli @gand3lf (IMQ Minded Security)
+        - Johan Sydseter @sydseter (OWASP Foundation)
       owasp-mobile: M3
       category: security
       area: network
@@ -14,8 +14,10 @@ rules:
         - L2
       references:
         - https://github.com/OWASP/owasp-mastg/blob/v1.5.0/Document/0x05g-Testing-Network-Communication.md#testing-endpoint-identify-verification-mstg-network-3
-    message: The app is debuggable. TLS error may therefor get ignored in onReceivedSslError when webviews are implemented with Apache Cordova
+    message: The app has customized it's trust anchors allowing connections to potentially insecure CAs
     match:
-      any:
-        - android:debuggable="true"
+      all:
+        - tools:targetApi="$ARG"
+      where:
+      - comparison: $ARG < 24
             
