@@ -9,9 +9,12 @@ android {
     compileSdk = 35
 
     defaultConfig {
+        setTargetSdkVersion("23")
         applicationId = "com.example.uncrackable_level1_MASTG_NETWORK"
         minSdk = 23
         targetSdk = 23
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion(23)
         versionCode = 1
         versionName = "1.0"
 

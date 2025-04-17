@@ -147,7 +147,7 @@
     <issue
         id="GradleOverrides"
         message="This `targetSdkVersion` value (`23`) is not used; it is always overridden by the value specified in the Gradle build script (`23`)"
-        errorLine1="          android:targetSdkVersion=&quot;23&quot; />"
+        errorLine1="          android:targetSdkVersion=&quot;23&quot;/>"
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
@@ -191,7 +191,7 @@
     <issue
         id="ExpiredTargetSdkVersion"
         message="Google Play requires that apps target API level 33 or higher."
-        errorLine1="          android:targetSdkVersion=&quot;23&quot; />"
+        errorLine1="          android:targetSdkVersion=&quot;23&quot;/>"
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
@@ -206,7 +206,7 @@
         errorLine2="        ~~~~~~~~~~~~~~">
         <location
             file="build.gradle.kts"
-            line="14"
+            line="15"
             column="9"/>
     </issue>
 
@@ -305,7 +305,7 @@
         errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle.kts"
-            line="55"
+            line="58"
             column="24"/>
     </issue>
 
