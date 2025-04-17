@@ -1,0 +1,20 @@
+rules:
+  - id: MSTG-TEST-0021
+    severity: WARNING
+    languages:
+      - xml
+    metadata:
+      authors:
+        - Johan Sydseter @sydseter (OWASP Foundation)
+      owasp-mobile: M3
+      category: security
+      area: network
+      verification-level:
+        - L1
+        - L2
+      references:
+        - https://github.com/OWASP/owasp-mastg/blob/v1.5.0/Document/0x05g-Testing-Network-Communication.md#testing-endpoint-identify-verification-mstg-network-3
+    message: The app has customized it's trust anchors allowing connections to potentially insecure CAs
+    match:
+      any:
+        - cleartextTrafficPermitted="true"
