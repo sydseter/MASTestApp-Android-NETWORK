@@ -2,13 +2,24 @@
 <issues format="6" by="lint 8.9.1" type="baseline" client="gradle" dependencies="false" name="AGP (8.9.1)" variant="all" version="8.9.1">
 
     <issue
+        id="SuspiciousImport"
+        message="Don&apos;t include `android.R` here; use a fully qualified name for each usage instead"
+        errorLine1="import android.R"
+        errorLine2="~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/uncrackable_level1_MASTG_NETWORK/MainActivity.kt"
+            line="3"
+            column="1"/>
+    </issue>
+
+    <issue
         id="UnusedAttribute"
         message="Attribute `networkSecurityConfig` is only used in API level 24 and higher (current min is 23)"
         errorLine1="        android:networkSecurityConfig=&quot;@xml/network_security_config&quot;"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="17"
+            line="20"
             column="9"/>
     </issue>
 
@@ -19,7 +30,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="22"
+            line="25"
             column="13"/>
     </issue>
 
@@ -90,9 +101,64 @@
     </issue>
 
     <issue
+        id="GradleDependency"
+        message="A newer version of androidx.media3:media3-common-ktx than 1.6.0 is available: 1.6.1"
+        errorLine1="media3CommonKtx = &quot;1.6.0&quot;"
+        errorLine2="                  ~~~~~~~">
+        <location
+            file="$HOME/AndroidStudioProjects/UnCrackableLevel1/gradle/libs.versions.toml"
+            line="12"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.media3:media3-common-ktx than 1.6.0 is available: 1.6.1"
+        errorLine1="media3CommonKtx = &quot;1.6.0&quot;"
+        errorLine2="                  ~~~~~~~">
+        <location
+            file="$HOME/AndroidStudioProjects/UnCrackableLevel1/gradle/libs.versions.toml"
+            line="12"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.media3:media3-common-ktx than 1.6.0 is available: 1.6.1"
+        errorLine1="media3CommonKtx = &quot;1.6.0&quot;"
+        errorLine2="                  ~~~~~~~">
+        <location
+            file="$HOME/AndroidStudioProjects/UnCrackableLevel1/gradle/libs.versions.toml"
+            line="12"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="GradleOverrides"
+        message="This `minSdkVersion` value (`23`) is not used; it is always overridden by the value specified in the Gradle build script (`23`)"
+        errorLine1="    &lt;uses-sdk android:minSdkVersion=&quot;23&quot;"
+        errorLine2="              ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="7"
+            column="15"/>
+    </issue>
+
+    <issue
+        id="GradleOverrides"
+        message="This `targetSdkVersion` value (`23`) is not used; it is always overridden by the value specified in the Gradle build script (`23`)"
+        errorLine1="          android:targetSdkVersion=&quot;23&quot; />"
+        errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="8"
+            column="11"/>
+    </issue>
+
+    <issue
         id="Typos"
         message="Did you mean &quot;Level!&quot; instead of &quot;Level1&quot;?"
-        errorLine1="    &lt;string name=&quot;app_name&quot;>UnCrackable-Level1&lt;/string>"
+        errorLine1="    &lt;string name=&quot;app_name&quot;>UnCrackable-Level1-MASTG-NETWORK&lt;/string>"
         errorLine2="                                        ^">
         <location
             file="src/main/res/values/strings.xml"
@@ -102,13 +168,12 @@
 
     <issue
         id="HardcodedDebugMode"
-        severity="ignore"
         message="Avoid hardcoding the debug mode; leaving it out allows debug and release builds to automatically assign one"
         errorLine1="        android:debuggable=&quot;true&quot;"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="16"
+            line="19"
             column="9"/>
     </issue>
 
@@ -119,13 +184,23 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/example/uncrackable_level1_MASTG_NETWORK/MainActivity.kt"
-            line="83"
+            line="91"
             column="17"/>
     </issue>
 
     <issue
         id="ExpiredTargetSdkVersion"
-        severity="ignore"
+        message="Google Play requires that apps target API level 33 or higher."
+        errorLine1="          android:targetSdkVersion=&quot;23&quot; />"
+        errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="8"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="ExpiredTargetSdkVersion"
         message="Google Play requires that apps target API level 33 or higher."
         errorLine1="        targetSdk = 23"
         errorLine2="        ~~~~~~~~~~~~~~">
@@ -137,13 +212,12 @@
 
     <issue
         id="ObsoleteSdkInt"
-        severity="ignore"
         message="Unnecessary; `SDK_INT` is always >= 23"
         errorLine1="        tools:targetApi=&quot;23&quot;>"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="18"
+            line="21"
             column="9"/>
     </issue>
 
@@ -225,13 +299,24 @@
     </issue>
 
     <issue
+        id="UseTomlInstead"
+        message="Use version catalog instead"
+        errorLine1="        implementation(&quot;com.android.support:support-annotations:28.0.0&quot;)"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle.kts"
+            line="55"
+            column="24"/>
+    </issue>
+
+    <issue
         id="RtlHardcoded"
         message="Use &quot;`Gravity.START`&quot; instead of &quot;`Gravity.LEFT`&quot; to ensure correct behavior in right-to-left locales"
         errorLine1="        params.gravity = Gravity.TOP or Gravity.LEFT"
         errorLine2="                                                ~~~~">
         <location
             file="src/main/java/com/example/uncrackable_level1_MASTG_NETWORK/MainActivity.kt"
-            line="90"
+            line="98"
             column="49"/>
     </issue>
 
