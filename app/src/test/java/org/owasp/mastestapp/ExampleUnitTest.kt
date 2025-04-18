@@ -1,4 +1,4 @@
-package com.example.uncrackable_level1_MASTG_NETWORK
+package org.owasp.mastestapp
 
 import org.junit.Test
 

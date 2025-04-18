@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "UnCrackable-Level1-MASTG-NETWORK"
+rootProject.name = "MASTestApp-Android-NETWORK"
 include(":app")

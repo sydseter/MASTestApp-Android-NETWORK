@@ -1,6 +1,8 @@
 # Uncrakcable - Level 1-2
 
-An app with a really bad networking issue
+An app with a really bad networking issue.
+
+The code is based on https://github.com/cpholguera/MASTestApp-Android
 
 ## Install the app
 
