@@ -20,9 +20,9 @@ The code is based on https://github.com/cpholguera/MASTestApp-Android
 12. Download the apks release
 13. Install the apks like this:
 
-    java -jar .github/lib/bundletool.jar install-apks --apks={path to the downloaded apks}/UnCrackable-Level1-MASTG-NETWORK.apks
+    java -jar .github/lib/bundletool.jar install-apks --apks={path to the downloaded apks}/MASTestApp-Android-NETWORK.apks
     # or
-    adb install {path to the downloaded apks}/UnCrackable-Level1-MASTG-NETWORK.apk
+    adb install {path to the downloaded apks}/MASTestApp-Android-NETWORK.apk
 
 14. If you want to pentest the app, you can install frida and following this guide: https://medium.com/@SecureWithMohit/getting-started-with-frida-setting-up-on-an-emulator-47980170d2b2
 
