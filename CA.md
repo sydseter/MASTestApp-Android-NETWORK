@@ -222,6 +222,9 @@ It will create a certificate that is valid for one day and register the certific
     openssl ca -config tlsrevoked.ca.conf -revoke tlsrevoked/tlsrevocation.org.crt
     # Enter pass phrase for ./ca.key:test
 
+    # update the CRL
+    openssl ca -config tlsrevoked.ca.conf -gencrl -out crl/root.crl
+
 ### Place the crl together with your web files
 
     # Move the fake crl to your vulnerable domain
